@@ -44,7 +44,7 @@ export const vectorStore = async(querystring:string)=>{
 } 
 
 
-export async function GET(request: Request) {
+ async function GET(request: Request) {
 //const ss= await vectorStore();
 
  // Create docs with a loader
