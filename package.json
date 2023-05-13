@@ -9,14 +9,39 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dqbd/tiktoken": "^1.0.7",
+    "@radix-ui/react-accordion": "^1.1.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tanstack/react-query": "^4.29.5",
     "@types/node": "18.16.3",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
+    "@upstash/ratelimit": "^0.4.2",
+    "@upstash/redis": "^1.20.6",
+    "cheerio": "^1.0.0-rc.12",
+    "chromadb": "^1.4.1",
+    "clsx": "^1.2.1",
+    "clx": "^1.0.0",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.2",
+    "eventsource-parser": "^1.0.0",
+    "langchain": "^0.0.74",
+    "lucide-react": "^0.190.0",
+    "nanoid": "^4.0.2",
     "next": "13.3.2",
+    "pdf-parse": "^1.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.4"
+    "react-hot-toast": "^2.4.1",
+    "react-textarea-autosize": "^8.4.1",
+    "tailwind-merge": "^1.12.0",
+    "typescript": "5.0.4",
+    "web-to-text": "^1.0.3",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2"
   }
 }

@@ -1,10 +1,15 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import Chat from '@/components/Chat'
 
 export default function Home() {
+
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
+    <main className='absolute inset-0  flex   justify-center items-center bg-gradient-to-r from-blue-500 to-black '>
+     
+     {/* <Chat/> */}
+      {/* <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
@@ -26,20 +31,24 @@ export default function Home() {
             />
           </a>
         </div>
-      </div>
+      </div> */}
 
-      <div className={styles.center}>
+      <div  className='flex flex-col items-center justify-center' >
         <Image
-          className={styles.logo}
-          src="/next.svg"
+         
+          src="/next1.png"
           alt="Next.js Logo"
           width={180}
           height={37}
           priority
         />
+        <h1 className='text-white text-[30px] font-mono'>Your AI ChatBot </h1>
+        <p className='text-white  font-mono line-clamp-3 text-center truncat'>I am here to help you for any query related to your information ,you just need to Email us on kouatiba@msn.com 
+        to index your data [websire, pdf, Excelsheet......etc ] and train on it  </p>
+      
       </div>
 
-      <div className={styles.grid}>
+      {/* <div className={styles.grid}>
         <a
           href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
           className={styles.card}
@@ -89,7 +98,7 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
-      </div>
+      </div> */}
     </main>
   )
 }
