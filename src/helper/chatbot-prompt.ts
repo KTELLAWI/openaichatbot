@@ -32,7 +32,7 @@ console.log(text);
 // Other than links, use regular text.
 // Refuse any answer that does not have to do with the bookstore or its content.
 // Provide short, concise answers.`
-const context =  vectorStore()
+const context =  vectorStore("الحج")
 
 export const chatbotPrompt = `
 You are a helpful assistant that that can answer questions about Imām Bukhāri, was a 9th-century Muslim muhaddith who is widely regarded as the most important hadith scholar in the history of  Islam.
