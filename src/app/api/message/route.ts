@@ -65,7 +65,7 @@ const chain = new LLMChain({ llm: model, prompt:chat_prompt });
 
 
 
-export async function OpenAIStream(messages:Message[]) {
+ async function OpenAIStream(messages:Message[]) {
    
     // const encoder = new TextEncoder();
     // const decoder = new TextDecoder();
