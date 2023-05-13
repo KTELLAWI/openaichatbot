@@ -98,7 +98,7 @@ const ChatInput: FC<ChatInputProps> = ({ className, ...props }) => {
                 text: input,
               }
 
-              sendMessage(message,input)
+              sendMessage(message)
             }
           }}
           rows={2}
