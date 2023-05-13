@@ -65,73 +65,35 @@ const chain = new LLMChain({ llm: model, prompt:chat_prompt });
 
 
 
- async function OpenAIStream(messages:Message[]) {
+//  async function OpenAIStream(messages:Message[]) {
    
-    // const encoder = new TextEncoder();
-    // const decoder = new TextDecoder();
-    const query: Message = messages[messages.length -1];
-    const context = await vectorStore(query.text);
-    let counter = 0;
+    
+//     const query: Message = messages[messages.length -1];
+//     const context = await vectorStore(query.text);
+//     let counter = 0;
 
-    const res = await chain.call({  context: context,
+//     const res = await chain.call({  context: context,
 
-        question:query.text , }, 
-        // [
-        //   {
-        //     handleLLMNewToken(token: string) {
-        //       process.stdout.write(token);
-        //     },
-        //   },
-        // ]
-        );
- const ss= JSON.stringify(res);
- const obj = JSON.parse(ss);
-    // const stream = new ReadableStream({
-    //   async start(controller) {
-    //     // callback
-    //     function onParse(event: ParsedEvent | ReconnectInterval) {
-    //       if (event.type === "event") {
-    //         const data = event.data;
-    //         // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
-    //         if (data === "[DONE]") {
-    //           controller.close();
-    //           return;
-    //         }
-    //         try {
-    //           const json = JSON.parse(data);
-    //           const text = json.choices[0].delta?.content || "";
-    //           if (counter < 2 && (text.match(/\n/) || []).length) {
-    //             // this is a prefix character (i.e., "\n\n"), do nothing
-    //             return;
-    //           }
-    //           const queue = encoder.encode(text);
-    //           controller.enqueue(queue);
-    //           counter++;
-    //         } catch (e) {
-    //           // maybe parse error
-    //           controller.error(e);
-    //         }
-    //       }
-    //     }
+//         question:query.text , }, 
+//         // [
+//         //   {
+//         //     handleLLMNewToken(token: string) {
+//         //       process.stdout.write(token);
+//         //     },
+//         //   },
+//         // ]
+//         );
+//  const ss= JSON.stringify(res);
+//  const obj = JSON.parse(ss);
   
-    //     // stream response (SSE) from OpenAI may be fragmented into multiple chunks
-    //     // this ensures we properly read chunks and invoke an event for each SSE event stream
-    //     const parser = createParser(onParse);
-    //     // https://web.dev/streams/#asynchronous-iteration
-    //     for await (const chunk of obj.text as any) {
-    //       parser.feed(decoder.decode(chunk));
-    //     }
-    //   },
-    // });
-  
-    return obj.text;
-  }
+//     return obj.text;
+//   }
 
 export async function POST(req:Request) {
 
   // const context = await vectorStore()
     const {messages} = await req.json()
-    const query: Message = messages[messages.length -1];
+   // const query: Message = messages[messages.length -1];
     const parsedMessage = MessageArraySchema.parse(messages);
     const outboundMessages:ChatGPTMessage[]= parsedMessage.map((message)=>({
         role:message.isUserMessage? "user" : "system",
@@ -188,9 +150,26 @@ export async function POST(req:Request) {
     //     n: 1,
     //   }
     
-       const stream = await OpenAIStream(messages)
+      // const stream = await OpenAIStream(messages)
     // Create a new LLMChain from a PromptTemplate and an LLM in streaming mode.
    
+    const query: Message = messages[messages.length -1];
+    const context = await vectorStore(query.text);
+    let counter = 0;
+
+    const res = await chain.call({  context: context,
+
+        question:query.text , }, 
+        // [
+        //   {
+        //     handleLLMNewToken(token: string) {
+        //       process.stdout.write(token);
+        //     },
+        //   },
+        // ]
+        );
+ const ss= JSON.stringify(res);
+ const obj = JSON.parse(ss);
     
-      return new Response(stream)
+      return new Response(obj.text)
 }
