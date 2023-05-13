@@ -34,11 +34,10 @@ import {
 //   const messages = responseD.toChatMessages();
 
 
-const model = new OpenAIChat({ temperature: 0.9, streaming: false,openAIApiKey:"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"  });
+const model = new OpenAIChat({ temperature: 0.9, streaming: false,openAIApiKey:process.env.OPENAI_API_KEY });
 
 const template = `
-You are a helpful assistant that that can answer questions about Imām Bukhāri, 
-was a 9th-century Muslim muhaddith who is widely regarded as the most important hadith scholar in the history of  Islam. based on : {context}
+You are a helpful assistant that that can answer questions about Al-Hajj worship based on : {context}
  Only use the factual information from the context to answer the question.
  If you feel like you don't have enough information to answer the question, say I dont know .
  answer always in Arabic
@@ -67,10 +66,11 @@ const chain = new LLMChain({ llm: model, prompt:chat_prompt });
 
 
 export async function OpenAIStream(messages:Message[]) {
-    const context = await vectorStore()
+   
     // const encoder = new TextEncoder();
     // const decoder = new TextDecoder();
     const query: Message = messages[messages.length -1];
+    const context = await vectorStore(query.text);
     let counter = 0;
 
     const res = await chain.call({  context: context,
@@ -129,7 +129,7 @@ export async function OpenAIStream(messages:Message[]) {
 
 export async function POST(req:Request) {
 
-   const context = await vectorStore()
+  // const context = await vectorStore()
     const {messages} = await req.json()
     const query: Message = messages[messages.length -1];
     const parsedMessage = MessageArraySchema.parse(messages);

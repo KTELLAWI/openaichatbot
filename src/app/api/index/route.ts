@@ -19,17 +19,28 @@ import {
 
 
 
-export const vectorStore = async()=>{
-    const loader = new TextLoader("/bukhari2.txt");
+export const vectorStore = async(querystring:string)=>{
+    const loader = new TextLoader("src/alhaj.txt");
   const docs = await loader.load();
+  const splitter = new RecursiveCharacterTextSplitter({
+    chunkSize: 1000,
+    chunkOverlap: 100,
+  });
+  
+   const output = await splitter.splitDocuments(docs);
+   console.log(output);
  const resultOne = await MemoryVectorStore.fromDocuments(
-    docs,
+    output,
     new OpenAIEmbeddings({
-        openAIApiKey:"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"
+        openAIApiKey:process.env.OPENAI_API_KEY
     }),
   );
-  return resultOne.memoryVectors[0].content;
- // console.log(resultOne.memoryVectors[0].content.toString());
+   const query = await resultOne.similaritySearch(querystring,3);
+   const docs_page_content = query.map(d => d.pageContent).join(' ');
+
+  console.log(docs_page_content);
+  return docs_page_content; //resultOne.memoryVectors[0].content;
+ // console.log(resultOne.memoryVectors[0].content);
 } 
 
 
@@ -44,42 +55,43 @@ export async function GET(request: Request) {
 //   const resultOne = await vectorStore.similaritySearch("#####");
 
 //   console.log(resultOne);
-const context = await vectorStore()
-const model = new OpenAIChat({ temperature: 0.9, streaming: false,openAIApiKey:"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"  });
+const context = await vectorStore("الحج")
+// const model = new OpenAIChat({ temperature: 0.9, streaming: false,openAIApiKey:"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"  });
 
-const template = `
-You are a helpful assistant that that can answer questions about Imām Bukhāri, 
-was a 9th-century Muslim muhaddith who is widely regarded as the most important hadith scholar in the history of  Islam. based on : {context}
- Only use the factual information from the context to answer the question.
- If you feel like you don't have enough information to answer the question, say I dont know .
+// const template = `
+// You are a helpful assistant that that can answer questions about Imām Bukhāri, 
+// was a 9th-century Muslim muhaddith who is widely regarded as the most important hadith scholar in the history of  Islam. based on : {context}
+//  Only use the factual information from the context to answer the question.
+//  If you feel like you don't have enough information to answer the question, say I dont know .
     
-  `;
+//   `;
 
-const system_message_prompt = SystemMessagePromptTemplate.fromTemplate(template);
+// const system_message_prompt = SystemMessagePromptTemplate.fromTemplate(template);
 
- const human_template = "Answer the following question: {question}"
-const human_message_prompt = HumanMessagePromptTemplate.fromTemplate(human_template);
+//  const human_template = "Answer the following question: {question}"
+// const human_message_prompt = HumanMessagePromptTemplate.fromTemplate(human_template);
 
-const chat_prompt = ChatPromptTemplate.fromPromptMessages(
-    [system_message_prompt, human_message_prompt]
-)
-const chain = new LLMChain({ llm: model, prompt:chat_prompt });
+// const chat_prompt = ChatPromptTemplate.fromPromptMessages(
+//     [system_message_prompt, human_message_prompt]
+// )
+// const chain = new LLMChain({ llm: model, prompt:chat_prompt });
 
-// Call the chain with the inputs and a callback for the streamed tokens
-const res = await chain.call({  context: context,
+// // Call the chain with the inputs and a callback for the streamed tokens
+// const res = await chain.call({  context: context,
 
-question: "what is name of his wife", }, 
-// [
-//   {
-//     handleLLMNewToken(token: string) {
-//       process.stdout.write(token);
-//     },
-//   },
-// ]
-);
-const ss= JSON.stringify(res);
-console.log({ ss });
+// question: "what is name of his wife", }, 
+// // [
+// //   {
+// //     handleLLMNewToken(token: string) {
+// //       process.stdout.write(token);
+// //     },
+// //   },
+// // ]
+// );
+// const ss= JSON.stringify(res);
+// const obj = JSON.parse(ss);
+// console.log( obj.text );
 
-    return new Response(ss)
+    return new Response()
   }
   

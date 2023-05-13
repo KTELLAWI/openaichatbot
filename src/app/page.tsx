@@ -42,9 +42,10 @@ export default function Home() {
           height={37}
           priority
         />
-        <h1 className='text-white text-[30px] font-mono'>Your AI ChatBot </h1>
-        <p className='text-white  font-mono line-clamp-3 text-center truncat'>I am here to help you for any query related to your information ,you just need to Email us on kouatiba@msn.com 
-        to index your data [websire, pdf, Excelsheet......etc ] and train on it  </p>
+        <h1 className='text-white text-[30px] font-serif'>تشات بوت مبني على الذكاء الاصطناعي </h1>
+        <p className='text-white  font-serif line-clamp-3 text-center truncat'> يمكن تدريب هذا البوت على اي بيانات خاصة ليتم الاجابة عليها من قبل العملاء لموقعكم أو شركتكم </p>
+        <p className='text-white  font-serif line-clamp-3 text-center truncat'> تواصلو معنا للحصول على نسخة مخصصة لأعمالكم</p>
+
       
       </div>
 

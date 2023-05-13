@@ -5,7 +5,7 @@ import { Message } from '@/lib/validators/message'
 const defaultValue = [
     {
       id: nanoid(),
-      text: 'Hello, how can I help you?',
+      text: 'كيف يمكنني  مساعدتك فيما يتعلق بعبادة الحج',
       isUserMessage: false,
     },
   ]
