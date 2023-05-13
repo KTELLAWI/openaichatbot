@@ -1,6 +1,6 @@
  import { vectorStore } from "@/app/api/index/route";
 import { bookData } from "./book-data";
- import {getContent} from 'web-to-text';
+//  import {getContent} from 'web-to-text';
 
  //const getText = require('web-to-text')
   var text;
