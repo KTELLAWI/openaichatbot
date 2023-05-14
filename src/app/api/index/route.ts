@@ -20,7 +20,7 @@ import {
 
 
 export const vectorStore = async(querystring:string)=>{
-    const loader = new TextLoader("/alhaj.txt");
+    const loader = new TextLoader(process.env.FILE_PATH);
   const docs = await loader.load();
   const splitter = new RecursiveCharacterTextSplitter({
     chunkSize: 1000,
