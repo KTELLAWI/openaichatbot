@@ -20,7 +20,9 @@ import {
 
 
 export const vectorStore = async(querystring:string)=>{
-    const loader = new TextLoader("https://openaichatbot-nt5p.vercel.app/alhaj.txt");
+  const response = await fetch("https://openaichatbot-nt5p.vercel.app/alhaj.txt");
+  const text = await response.text();
+    const loader = new TextLoader(text);
   const docs = await loader.load();
   const splitter = new RecursiveCharacterTextSplitter({
     chunkSize: 1000,
