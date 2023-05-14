@@ -16,13 +16,14 @@ import {
     SystemMessagePromptTemplate,
   } from "langchain/prompts";
   import { LLMChain } from "langchain/chains";
-
+import path from 'path';
 
 
 export const vectorStore = async(querystring:string)=>{
   // const response = await fetch("../alhaj.txt");
   // const text = await response.text();
-    const loader = new TextLoader("/alhaj.txt");
+  const pathfile = path.join(process.cwd(), 'public/alhaj.txt');
+    const loader = new TextLoader(pathfile);
   const docs = await loader.load();
   const splitter = new RecursiveCharacterTextSplitter({
     chunkSize: 1000,
